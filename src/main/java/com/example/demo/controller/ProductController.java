@@ -24,6 +24,16 @@ public class ProductController {
 		return productService.selectAllProducts();
 	}
 	
+	@RequestMapping(value = "products/price/{price}", method = RequestMethod.GET, produces = "application/json")
+	public List<ProductDto> getAllProductsByPrice(@PathVariable("price") Double price) {
+		return productService.selectAllProductsByPrice(price);
+	}
+	
+	@RequestMapping(value = "products/price/{start}/{end}", method = RequestMethod.GET, produces = "application/json")
+	public List<ProductDto> getAllProductsByPriceRange(@PathVariable("start") Double start, @PathVariable("end") Double end) {
+		return productService.selectAllProductsByPriceRange(start, end);
+	}
+	
 	@RequestMapping(value = "products/{id}", method = RequestMethod.GET, produces = "application/json")
 	public ProductDto getProductsById(@PathVariable("id") Integer id) {
 		return productService.selectById(id);
@@ -33,6 +43,7 @@ public class ProductController {
 	public ProductDto getAllProducts(@PathVariable("id") Integer id) {
 		return productService.deleteProdut(id);
 	}
+	
 	@RequestMapping(value = "products", method = RequestMethod.POST, consumes = "application/json",produces = "application/json")
 	public ProductDto addProduct(@RequestBody ProductDto dto) {
 		return productService.insertProdut(dto);
